@@ -1,5 +1,7 @@
-const gameContainer = document.getElementById("game");
+const gameContainer = document.getElementById("card-deck");
 let numberCardsClicked = 0;
+let clickedCardOne;
+let clickedCardTwo;
 const COLORS = [
   "red",
   "blue",
@@ -59,8 +61,34 @@ function createDivsForColors(colorArray) {
 
 
 function handleCardClick(event) {
-  let clickedCard = event.target;
-  console.log("you just clicked", clickedCard);
-  clickedCard.style.backgroundColor = clickedCard.classList[0]; //color of the card = first class added to its classList.
+  console.log("You clicked on this card: ", event.target);
+  if (numberCardsClicked === 0) {
+    clickedCardOne = event.target;
+    changeColor(clickedCardOne);
+    numberCardsClicked++;
+  } else if (numberCardsClicked === 1 && !(event.target.classList.contains("clicked"))) { // If the card's background color hasn't changed yet
+    clickedCardTwo = event.target;
+    changeColor(clickedCardTwo);
+    numberCardsClicked++;
+    setTimeout(compareCards, 1000);
+  }
+}
+
+function changeColor(clickedCard) { // Changes color of card to its background color and gives it the "clicked" class.
+  clickedCard.style.backgroundColor = clickedCard.classList[0]; // Color of the card = first class added to its classList.
+  clickedCard.classList.add("clicked");
+}
+
+function compareCards() { //If cards don't match, "unclick them" by removing the clicked class and changing their colors back.
+  if (clickedCardOne.classList[0] !== clickedCardTwo.classList[0]) {
+    removeColor(clickedCardOne);
+    removeColor(clickedCardTwo);
+  }
+  numberCardsClicked = 0;
+}
+
+function removeColor(clickedCard) { //Reinstates color of card to white and removes the "clicked" class from it.
+  clickedCard.style.backgroundColor = "white";
+  clickedCard.classList.remove("clicked");
 }
 
