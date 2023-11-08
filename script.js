@@ -1,5 +1,5 @@
 const gameContainer = document.getElementById("game");
-
+let numberCardsClicked = 0;
 const COLORS = [
   "red",
   "blue",
@@ -10,12 +10,14 @@ const COLORS = [
   "blue",
   "green",
   "orange",
-  "purple"
-];
+  "purple",
+]; 
 
-// here is a helper function to shuffle an array
-// it returns the same array with values shuffled
-// it is based on an algorithm called Fisher Yates if you want ot research more
+//Initial state of the game
+let shuffledColors = shuffle(COLORS); 
+createDivsForColors(shuffledColors); //div classes will be the colors in the order they were shuffled
+
+// Helper function to shuffle the array. It is based on an algorithm called Fisher Yates if you want to research more.
 function shuffle(array) {
   let counter = array.length;
 
@@ -36,11 +38,9 @@ function shuffle(array) {
   return array;
 }
 
-let shuffledColors = shuffle(COLORS);
 
-// this function loops over the array of colors
-// it creates a new div and gives it a class with the value of the color
-// it also adds an event listener for a click for each card
+// Loops over shuffledColors array, for each value it creates a new div and gives it a class with the value of the current entry
+// and adds an event listener for clicking on the div/card.
 function createDivsForColors(colorArray) {
   for (let color of colorArray) {
     // create a new div
@@ -57,11 +57,9 @@ function createDivsForColors(colorArray) {
   }
 }
 
-// TODO: Implement this function!
+
 function handleCardClick(event) {
-  // you can use event.target to see which element was clicked
   console.log("you just clicked", event.target);
+  
 }
 
-// when the DOM loads
-createDivsForColors(shuffledColors);
