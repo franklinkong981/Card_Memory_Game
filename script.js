@@ -4,6 +4,7 @@ const instructionResultLine = document.getElementById("instruction-result");
 const scoreLine = document.getElementById("score");
 const playAgainBtn = document.getElementById("play-again-button");
 let numberCardsClicked = 0;
+let numberCorrectGuesses = 0;
 let clickedCardOne;
 let clickedCardTwo;
 let currentScore = 0;
@@ -26,6 +27,8 @@ startGameBtn.addEventListener("click", function() {
   createDivsForColors(shuffledColors); //div classes will be the colors in the order they were shuffled
   scoreLine.classList.remove("hidden");
 });
+
+playAgainBtn.addEventListener("click",resetGame);
 
 // Helper function to shuffle the array. It is based on an algorithm called Fisher Yates if you want to research more.
 function shuffle(array) {
@@ -88,12 +91,17 @@ function changeColor(clickedCard) { // Changes color of card to its background c
 }
 
 function compareCards() { //If cards don't match, "unclick them" by removing the clicked class and changing their colors back.
-  if (clickedCardOne.classList[0] !== clickedCardTwo.classList[0]) {
+  if (clickedCardOne.classList[0] === clickedCardTwo.classList[0]) {
+    numberCorrectGuesses++;
+  } else {
     removeColor(clickedCardOne);
     removeColor(clickedCardTwo);
   }
   numberCardsClicked = 0;
   setScore(currentScore + 1);
+  if (numberCorrectGuesses >= 5) {
+    finishGame();
+  }
 }
 
 function removeColor(clickedCard) { //Reinstates color of card to white and removes the "clicked" class from it.
@@ -105,4 +113,28 @@ function setScore(newScore) {
   currentScore = newScore;
   scoreLine.innerText = `Your score: ${currentScore}`;
 }
+
+function finishGame() {
+  scoreLine.innerText = `YOU WIN! It took you ${currentScore} guesses!`;
+  playAgainBtn.classList.toggle("hidden");
+}
+
+function resetGame() {
+  numberCorrectGuesses = 0;
+  setScore(0);
+  playAgainBtn.classList.toggle("hidden");
+  let shuffledColors = shuffle(COLORS); //Before playing again, reshuffle colors of cards.
+  resetDivsForColors(shuffledColors);
+}
+
+function resetDivsForColors(colorArray) {
+  let divs = document.querySelectorAll(".clicked");
+  for (let i = 0; i < divs.length; i++){
+    removeColor(divs[i]); //Sets each card back to white and removes the clicked class
+    divs[i].classList.remove(divs[i].classList[0]); // So only class remaining is the card's old color
+    divs[i].classList.add(colorArray[i]);
+  }
+}
+
+
 
