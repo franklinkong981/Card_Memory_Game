@@ -1,8 +1,12 @@
 const gameContainer = document.getElementById("card-deck");
 const startGameBtn = document.getElementById("start-game");
+const instructionResultLine = document.getElementById("instruction-result");
+const scoreLine = document.getElementById("score");
+const playAgainBtn = document.getElementById("play-again-button");
 let numberCardsClicked = 0;
 let clickedCardOne;
 let clickedCardTwo;
+let currentScore = 0;
 const COLORS = [
   "red",
   "blue",
@@ -17,8 +21,10 @@ const COLORS = [
 ]; 
 
 startGameBtn.addEventListener("click", function() {
+  startGameBtn.classList.add("hidden");
   let shuffledColors = shuffle(COLORS); 
   createDivsForColors(shuffledColors); //div classes will be the colors in the order they were shuffled
+  scoreLine.classList.remove("hidden");
 });
 
 // Helper function to shuffle the array. It is based on an algorithm called Fisher Yates if you want to research more.
@@ -87,10 +93,16 @@ function compareCards() { //If cards don't match, "unclick them" by removing the
     removeColor(clickedCardTwo);
   }
   numberCardsClicked = 0;
+  setScore(currentScore + 1);
 }
 
 function removeColor(clickedCard) { //Reinstates color of card to white and removes the "clicked" class from it.
   clickedCard.style.backgroundColor = "white";
   clickedCard.classList.remove("clicked");
+}
+
+function setScore(newScore) {
+  currentScore = newScore;
+  scoreLine.innerText = `Your score: ${currentScore}`;
 }
 
