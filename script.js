@@ -3,27 +3,34 @@ const startGameBtn = document.getElementById("start-game");
 const instructionResultLine = document.getElementById("instruction-result");
 const scoreLine = document.getElementById("score");
 const playAgainBtn = document.getElementById("play-again-button");
+
 let numberCardsClicked = 0;
 let numberCorrectGuesses = 0;
 let clickedCardOne;
 let clickedCardTwo;
 let currentScore = 0;
-const COLORS = [
-  "red",
-  "blue",
-  "green",
-  "orange",
-  "purple",
-  "red",
-  "blue",
-  "green",
-  "orange",
-  "purple",
-]; 
+
+let colors = [];
+makeColors();
+
+function makeColors() {
+  for (let i = 0; i < 5; i++) {
+    let rValue = Math.floor(Math.random() * 256);
+    let gValue = Math.floor(Math.random() * 256);
+    let bValue = Math.floor(Math.random() * 256);
+    if (colors.length === 0) {
+      colors.push(`rgb(${rValue},${gValue},${bValue})`);
+      colors.push(`rgb(${rValue},${gValue},${bValue})`);
+    } else {
+      colors[i*2] = `rgb(${rValue},${gValue},${bValue})`;
+      colors[i*2+1] = `rgb(${rValue},${gValue},${bValue})`;
+    }
+  }
+}
 
 startGameBtn.addEventListener("click", function() {
   startGameBtn.classList.add("hidden");
-  let shuffledColors = shuffle(COLORS); 
+  let shuffledColors = shuffle(colors); 
   createDivsForColors(shuffledColors); //div classes will be the colors in the order they were shuffled
   scoreLine.classList.remove("hidden");
 });
@@ -123,7 +130,8 @@ function resetGame() {
   numberCorrectGuesses = 0;
   setScore(0);
   playAgainBtn.classList.toggle("hidden");
-  let shuffledColors = shuffle(COLORS); //Before playing again, reshuffle colors of cards.
+  makeColors();
+  let shuffledColors = shuffle(colors); //Before playing again, reshuffle colors of cards.
   resetDivsForColors(shuffledColors);
 }
 
