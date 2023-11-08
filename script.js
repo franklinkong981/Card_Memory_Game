@@ -4,6 +4,7 @@ const instructionResultLine = document.getElementById("instruction-result");
 const scoreLine = document.getElementById("score");
 const playAgainBtn = document.getElementById("play-again-button");
 
+instructionResultLine.innerText = "Record Lowest Score: "
 let numberCardsClicked = 0;
 let numberCorrectGuesses = 0;
 let clickedCardOne;
@@ -32,10 +33,11 @@ startGameBtn.addEventListener("click", function() {
   startGameBtn.classList.add("hidden");
   let shuffledColors = shuffle(colors); 
   createDivsForColors(shuffledColors); //div classes will be the colors in the order they were shuffled
+  instructionResultLine.innerText = "Pick 2 cards";
   scoreLine.classList.remove("hidden");
 });
 
-playAgainBtn.addEventListener("click",resetGame);
+playAgainBtn.addEventListener("click", resetGame);
 
 // Helper function to shuffle the array. It is based on an algorithm called Fisher Yates if you want to research more.
 function shuffle(array) {
@@ -88,6 +90,13 @@ function handleCardClick(event) {
     clickedCardTwo = event.target;
     changeColor(clickedCardTwo);
     numberCardsClicked++;
+    if (clickedCardOne.classList[0] === clickedCardTwo.classList[0]) {
+      instructionResultLine.style.color = "green";
+      instructionResultLine.innerText = "Correct! You got a match!";
+    } else {
+      instructionResultLine.style.color = "red";
+      instructionResultLine.innerText = "Incorrect! The cards don't match!";
+    }
     setTimeout(compareCards, 1000);
   }
 }
@@ -106,6 +115,8 @@ function compareCards() { //If cards don't match, "unclick them" by removing the
   }
   numberCardsClicked = 0;
   setScore(currentScore + 1);
+  instructionResultLine.style.color = "black";
+  instructionResultLine.innerText = "Pick 2 cards";
   if (numberCorrectGuesses >= 10) {
     finishGame();
   }
@@ -124,11 +135,13 @@ function setScore(newScore) {
 function finishGame() {
   scoreLine.innerText = `YOU WIN! It took you ${currentScore} guesses!`;
   playAgainBtn.classList.toggle("hidden");
+  instructionResultLine.innerText = "Record Lowest Score: "
 }
 
 function resetGame() {
   numberCorrectGuesses = 0;
   setScore(0);
+  instructionResultLine.innerText = "Pick 2 cards";
   playAgainBtn.classList.toggle("hidden");
   makeColors();
   let shuffledColors = shuffle(colors); //Before playing again, reshuffle colors of cards.
