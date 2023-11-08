@@ -109,7 +109,7 @@ function handleCardClick(event) {
 }
 
 function changeColor(clickedCard) { // Changes color of card to its background color and gives it the "clicked" class.
-  clickedCard.style.backgroundColor = clickedCard.classList[0]; // Color of the card = first class added to its classList.
+  clickedCard.style.background = clickedCard.classList[0]; // Color of the card = first class added to its classList.
   clickedCard.classList.add("clicked");
 }
 
@@ -130,7 +130,8 @@ function compareCards() { //If cards don't match, "unclick them" by removing the
 }
 
 function removeColor(clickedCard) { //Reinstates color of card to white and removes the "clicked" class from it.
-  clickedCard.style.backgroundColor = "white";
+  clickedCard.style.background = "url(back_of_card.png)";
+  clickedCard.style.backgroundSize = "contain";
   clickedCard.classList.remove("clicked");
 }
 
