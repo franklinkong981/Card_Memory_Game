@@ -17,8 +17,11 @@ makeColors();
 function makeColors() {
   for (let i = 0; i < 10; i++) {
     let rValue = Math.floor(Math.random() * 256);
+    rValue -= (rValue % 10);
     let gValue = Math.floor(Math.random() * 256);
+    gValue -= (gValue % 10);
     let bValue = Math.floor(Math.random() * 256);
+    bValue -= (bValue % 10);
     if (colors.length === 0) {
       colors.push(`rgb(${rValue},${gValue},${bValue})`);
       colors.push(`rgb(${rValue},${gValue},${bValue})`);
@@ -82,7 +85,7 @@ function createDivsForColors(colorArray) {
 
 function handleCardClick(event) {
   console.log("You clicked on this card: ", event.target);
-  if (numberCardsClicked === 0) {
+  if (numberCardsClicked === 0 && !(event.target.classList.contains("clicked"))) {
     clickedCardOne = event.target;
     changeColor(clickedCardOne);
     numberCardsClicked++;
