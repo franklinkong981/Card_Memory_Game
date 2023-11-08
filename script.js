@@ -1,4 +1,5 @@
 const gameContainer = document.getElementById("card-deck");
+const startGameBtn = document.getElementById("start-game");
 let numberCardsClicked = 0;
 let clickedCardOne;
 let clickedCardTwo;
@@ -15,9 +16,10 @@ const COLORS = [
   "purple",
 ]; 
 
-//Initial state of the game
-let shuffledColors = shuffle(COLORS); 
-createDivsForColors(shuffledColors); //div classes will be the colors in the order they were shuffled
+startGameBtn.addEventListener("click", function() {
+  let shuffledColors = shuffle(COLORS); 
+  createDivsForColors(shuffledColors); //div classes will be the colors in the order they were shuffled
+});
 
 // Helper function to shuffle the array. It is based on an algorithm called Fisher Yates if you want to research more.
 function shuffle(array) {
