@@ -16,30 +16,43 @@ let clickedCardTwo;
 let currentScore = 0;
 
 let colors = [];
-makeColors();
+let colorBank = [
+  "black",
+  "silver",
+  "gray",
+  "white",
+  "maroon",
+  "red",
+  "purple",
+  "fuchsia",
+  "green",
+  "lime",
+  "olive",
+  "yellow",
+  "navy",
+  "blue",
+  "teal",
+  "aqua"
+]
+selectColors();
+colors = shuffle(colors);
 
-function makeColors() {
+function selectColors() {
+  colorBank = shuffle(colorBank);
   for (let i = 0; i < 10; i++) {
-    let rValue = Math.floor(Math.random() * 256);
-    rValue -= (rValue % 50);
-    let gValue = Math.floor(Math.random() * 256);
-    gValue -= (gValue % 50);
-    let bValue = Math.floor(Math.random() * 256);
-    bValue -= (bValue % 50);
     if (colors.length === 0) {
-      colors.push(`rgb(${rValue},${gValue},${bValue})`);
-      colors.push(`rgb(${rValue},${gValue},${bValue})`);
+      colors.push(colorBank[i]);
+      colors.push(colorBank[i]);
     } else {
-      colors[i*2] = `rgb(${rValue},${gValue},${bValue})`;
-      colors[i*2+1] = `rgb(${rValue},${gValue},${bValue})`;
+      colors[i*2] = colorBank[i];
+      colors[i*2+1] = colorBank[i];
     }
   }
 }
 
 startGameBtn.addEventListener("click", function() {
   startGameBtn.classList.add("hidden");
-  let shuffledColors = shuffle(colors); 
-  createDivsForColors(shuffledColors); //div classes will be the colors in the order they were shuffled
+  createDivsForColors(colors); //div classes will be the colors in the order they were shuffled
   instructionResultLine.innerText = "Pick 2 cards";
   scoreLine.classList.remove("hidden");
 });
@@ -157,9 +170,9 @@ function resetGame() {
   setScore(0);
   instructionResultLine.innerText = "Pick 2 cards";
   playAgainBtn.classList.toggle("hidden");
-  makeColors();
-  let shuffledColors = shuffle(colors); //Before playing again, reshuffle colors of cards.
-  resetDivsForColors(shuffledColors);
+  selectColors();
+  colors = shuffle(colors); //Before playing again, reselect and reshuffle colors of cards.
+  resetDivsForColors(colors);
 }
 
 function resetDivsForColors(colorArray) {
