@@ -59,7 +59,8 @@ function createDivsForColors(colorArray) {
 
 
 function handleCardClick(event) {
-  console.log("you just clicked", event.target);
-  
+  let clickedCard = event.target;
+  console.log("you just clicked", clickedCard);
+  clickedCard.style.backgroundColor = clickedCard.classList[0]; //color of the card = first class added to its classList.
 }
 
