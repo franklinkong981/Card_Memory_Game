@@ -4,7 +4,11 @@ const instructionResultLine = document.getElementById("instruction-result");
 const scoreLine = document.getElementById("score");
 const playAgainBtn = document.getElementById("play-again-button");
 
-instructionResultLine.innerText = "Record Lowest Score: "
+if (localStorage.getItem("lowestScore")) {
+  instructionResultLine.innerText = `Record Lowest Score: ${localStorage.getItem("lowestScore")}`;
+} else {
+  instructionResultLine.innerText = "Record Lowest Score: --";
+}
 let numberCardsClicked = 0;
 let numberCorrectGuesses = 0;
 let clickedCardOne;
@@ -17,11 +21,11 @@ makeColors();
 function makeColors() {
   for (let i = 0; i < 10; i++) {
     let rValue = Math.floor(Math.random() * 256);
-    rValue -= (rValue % 10);
+    rValue -= (rValue % 50);
     let gValue = Math.floor(Math.random() * 256);
-    gValue -= (gValue % 10);
+    gValue -= (gValue % 50);
     let bValue = Math.floor(Math.random() * 256);
-    bValue -= (bValue % 10);
+    bValue -= (bValue % 50);
     if (colors.length === 0) {
       colors.push(`rgb(${rValue},${gValue},${bValue})`);
       colors.push(`rgb(${rValue},${gValue},${bValue})`);
@@ -136,9 +140,14 @@ function setScore(newScore) {
 }
 
 function finishGame() {
-  scoreLine.innerText = `YOU WIN! It took you ${currentScore} guesses!`;
   playAgainBtn.classList.toggle("hidden");
-  instructionResultLine.innerText = "Record Lowest Score: "
+  if (!localStorage.getItem("lowestScore") || currentScore < localStorage.getItem("lowestScore")) {
+    localStorage.setItem("lowestScore", `${currentScore}`);
+    scoreLine.innerText = `NEW LOWEST SCORE! It took you ${currentScore} guesses!`;
+  } else {
+    scoreLine.innerText = `YOU WIN! It took you ${currentScore} guesses!`;
+  }
+  instructionResultLine.innerText = `Record Lowest Score: ${localStorage.getItem("lowestScore")}`;
 }
 
 function resetGame() {
