@@ -1,3 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=Merriweather+Sans:wght@300&family=Orbitron&family=Roboto+Slab:wght@500&display=swap');
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #e1b995;
+  font-family: Roboto Slab, Arial, Helvetica, Times New Roman, sans-serif;
+}
+
+#game {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100vh;
+}
+
+h1 {
+  font-size: 10vh;
+}
+
+h2 {
+  font-size: 10vh;
+  color: green;
+  padding: 5vh 5vw;
+  border-radius: 5vh;
+  border: solid 5px black;
+  cursor: pointer;
+}
+
+#instruction-result {
+  font-size: 5vh;
+}
+
 #card-deck div {
   border: 1px solid black;
   width: 15%;
