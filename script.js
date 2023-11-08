@@ -14,7 +14,7 @@ let colors = [];
 makeColors();
 
 function makeColors() {
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 10; i++) {
     let rValue = Math.floor(Math.random() * 256);
     let gValue = Math.floor(Math.random() * 256);
     let bValue = Math.floor(Math.random() * 256);
@@ -106,7 +106,7 @@ function compareCards() { //If cards don't match, "unclick them" by removing the
   }
   numberCardsClicked = 0;
   setScore(currentScore + 1);
-  if (numberCorrectGuesses >= 5) {
+  if (numberCorrectGuesses >= 10) {
     finishGame();
   }
 }
