@@ -132,6 +132,7 @@ function compareCards() { //If cards don't match, "unclick them" by removing the
 function removeColor(clickedCard) { //Reinstates color of card to white and removes the "clicked" class from it.
   clickedCard.style.background = "url(back_of_card.png)";
   clickedCard.style.backgroundSize = "contain";
+  clickedCard.style.backgroundColor = "white";
   clickedCard.classList.remove("clicked");
 }
 

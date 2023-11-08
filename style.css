@@ -56,3 +56,24 @@ h2 {
 .hidden {
   display: none;
 }
+
+#bottom-line {
+  display: flex;
+  justify-content: space-between;
+  height: 10vh;
+}
+
+#score {
+  font-size: 5vh;
+  padding-bottom: 5vh;
+  margin: 2vh 5vh;
+}
+
+#play-again-button {
+  font-size: 5vh;
+  color: green;
+  padding: 1vh;
+  border-radius: 2vh;
+  border: solid 5px black;
+  cursor: pointer;
+}
